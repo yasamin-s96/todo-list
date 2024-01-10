@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    My To Do List
+{% endblock %}
+
+{% block content %}
+
+    {% if incomplete_tasks.exists %}
+        <h1>Incomplete tasks</h1>
+        <form action="{% url "todo_app:tasks_list" as the_url %}" method="post">
+        {% include "task_completion_component.html" with tasks=incomplete_tasks redirect_to_url=the_url %}
+            <input type="submit" value="Reschedule for today" name="reschedule_tasks">
+            <input type="submit" value="Mark as complete" name="complete_tasks">
+        </form>
+    {% endif %}
+
+    <h1>Today's Todo List</h1>
+    {% if today_tasks.exists %}
+        <form action="{% url "todo_app:tasks_list" as the_url %}" method="post">
+            {% include "task_completion_component.html" with tasks=today_tasks redirect_to_url=the_url %}
+            <input type="submit" value="Complete task{{ today_tasks|pluralize }}" name="complete_tasks">
+        </form>
+    {% else %}
+        <p>No task for today. Add one from <a href="{% url "todo_app:add_task" %}">here</a>.</p>
+    {% endif %}
+{% endblock %}

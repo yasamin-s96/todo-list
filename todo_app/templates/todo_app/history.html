@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    History
+{% endblock %}
+
+{% block content %}
+    <h1>History of completed tasks</h1>
+    {% for task in completed_tasks %}
+        <a href="{% url "todo_app:edit_task" task.id %}" class="d-block">{{ task }}</a>
+    {% empty %}
+        <p>No record of completed tasks is available</p>
+    {% endfor %}
+{% endblock %}

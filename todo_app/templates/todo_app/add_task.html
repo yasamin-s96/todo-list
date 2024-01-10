@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Add a new task {% endblock %}
+
+{% block content %}
+    <h1>Add your tasks</h1>
+    <form action="{% url "todo_app:add_task" %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add">
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+    </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} View your task {% endblock %}
+
+{% block content %}
+    <h1>Edit your task</h1>
+    <form action="{% url "todo_app:edit_task" task.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="edit" value="Edit">
+        <input type="submit" name="delete" value="Delete">
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
+    </form>
+{% endblock %}

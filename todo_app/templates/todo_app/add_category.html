@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Add a category {% endblock %}
+
+{% block content %}
+    <h1>Create a custom category</h1>
+    <form action="{% url "todo_app:create_category" %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create">
+    </form>
+{% endblock %}

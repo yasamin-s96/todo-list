@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+    Upcoming Tasks
+{% endblock %}
+
+{% block content %}
+    <h1>Upcoming tasks</h1>
+    {% for task in upcoming_tasks %}
+        <p>{{ task }}</p>
+        <small>{{ task.task_due.date }}</small>
+    {% empty %}
+        <p>No upcoming tasks</p>
+    {% endfor %}
+{% endblock %}

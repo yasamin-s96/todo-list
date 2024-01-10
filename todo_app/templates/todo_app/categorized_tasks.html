@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ category }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ category }}</h1>
+    {% if relevant_tasks %}
+        <form action="{% url "todo_app:categorized" category.slug as the_url %}" method="post">
+            {% include "task_completion_component.html" with tasks=relevant_tasks redirect_to_url=the_url %}
+            <input type="submit" value="Complete task{{ relevant_tasks|pluralize }}" name="complete_tasks">
+        </form>
+        <br>
+    {% endif %}
+    <p>Add task from <a
+            href="{% url "todo_app:add_task" %}?category={{ category.slug }}&next={% url "todo_app:categorized" category.slug %}">here</a>.
+    </p>
+{% endblock %}
