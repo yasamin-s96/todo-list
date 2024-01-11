@@ -1,8 +1,8 @@
 {% csrf_token %}
 {% for task in tasks %}
-    <div>
-        <input type="checkbox" name="task" id="{{ task.id }}" value="{{ task.id }}">
-        <label for="{{ task.id }}"><a
-                href="{% url "todo_app:edit_task" task.id %}?next={{ redirect_to_url }}">{{ task.content|capfirst }}</a></label>
+    <div class="form-check mb-5">
+        <input type="checkbox" class="form-check-input" name="task" id="{{ task.id }}" value="{{ task.id }}">
+        <label for="{{ task.id }}" class="form-check-label"><a
+                href="{% url "todo_app:edit_task" task.id %}?next={{ redirect_to_url }}" class="link-secondary-emphasis">{{ task.content|capfirst }}</a></label>
     </div>
 {% endfor %}

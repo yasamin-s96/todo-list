@@ -7,58 +7,58 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static "css/style.css" %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static "css/style.css" %}">
     <script src="{% static "js/conf.js" %}"></script>
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-<nav>
-    {% if user.is_authenticated %}
-        <p>{{ user.email }}</p>
-    {% endif %}
-    <ul class="d-flex list-unstyled">
-        {% if user.is_authenticated %}
-            <li><a href="{% url "todo_app:tasks_list" %}">Home</a></li>
-            <li><a href="{% url "todo_app:add_task" %}">Add task</a></li>
-            <li><a href="{% url "todo_app:upcoming_tasks" %}">Upcoming</a></li>
-            <li><a href="{% url "todo_app:history" %}">History</a></li>
-            <li><a href="" id="submit_logout">Log out</a></li>
-            <form action="{% url "todo_app:logout" %}" method="post" id="logout_form" style="display: none;">
-                {% csrf_token %}
-            </form>
-        {% else %}
-            <li><a href="{% url "todo_app:login" %}">Log in</a></li>
-            <li><a href="{% url "todo_app:register" %}">Register</a></li>
-        {% endif %}
-    </ul>
-</nav>
+{#<nav>#}
+{#    {% if user.is_authenticated %}#}
+{#        <p>{{ user.email }}</p>#}
+{#    {% endif %}#}
+{#    <ul class="d-flex list-unstyled">#}
+{#        {% if user.is_authenticated %}#}
+{#            <li><a href="{% url "todo_app:tasks_list" %}">Home</a></li>#}
+{#            <li><a href="{% url "todo_app:add_task" %}">Add task</a></li>#}
+{#            <li><a href="{% url "todo_app:upcoming_tasks" %}">Upcoming</a></li>#}
+{#            <li><a href="{% url "todo_app:history" %}">History</a></li>#}
+{#            <li><a href="" id="submit_logout">Log out</a></li>#}
+{#            <form action="{% url "todo_app:logout" %}" method="post" id="logout_form" style="display: none;">#}
+{#                {% csrf_token %}#}
+{#            </form>#}
+{#        {% else %}#}
+{#            <li><a href="{% url "todo_app:login" %}">Log in</a></li>#}
+{#            <li><a href="{% url "todo_app:register" %}">Register</a></li>#}
+{#        {% endif %}#}
+{#    </ul>#}
+{#</nav>#}
 
 <div class="px-3">
-    <div class="row">
+    <div class="row vh-100">
         <!-- Display sidebar to authenticated users only -->
         {% if user.is_authenticated %}
             <div class="col-md-2 d-flex flex-column bgc-gray-light">
                 <!-- Sidebar content -->
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4>Categories</h4>
+                <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
+                    <p class="fs-6 fw-semibold align-middle mb-0 pb-1">Categories</p>
                     <a href="{% url "todo_app:create_category" %}" class="d-block svg-button">
                         <img src="{% static "icons/add-category.svg" %}" class="d-block w-100" alt="add icon">
                     </a>
                 </div>
                 {% with user.categories.all as categories %}
-                    <ul class="d-flex flex-column list-unstyled">
+                    <ul class="d-flex flex-column list-unstyled px-2">
                         {% for category in categories %}
-                            <li><a href="{% url "todo_app:categorized" category.slug %}">{{ category }}</a></li>
+                            <li class="my-1"><a href="{% url "todo_app:categorized" category.slug %}"># {{ category }}</a></li>
                         {% endfor %}
                     </ul>
                 {% endwith %}
             </div>
         {% endif %}
-        <div class="col-md-10">
+        <div class="col-md-10 pt-5">
             <!-- Main content area -->
-            <div class="vw-70 mx-auto">
+            <div class="vw-60 mx-auto">
 
                 {% if messages %}
                     <ul>

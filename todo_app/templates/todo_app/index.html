@@ -15,12 +15,14 @@
         </form>
     {% endif %}
 
-    <h1>Today's Todo List</h1>
+    <h1 class="fs-4 fw-bold">Today</h1>
     {% if today_tasks.exists %}
-        <form action="{% url "todo_app:tasks_list" as the_url %}" method="post">
-            {% include "task_completion_component.html" with tasks=today_tasks redirect_to_url=the_url %}
-            <input type="submit" value="Complete task{{ today_tasks|pluralize }}" name="complete_tasks">
-        </form>
+        <div class="mt-5">
+            <form action="{% url "todo_app:tasks_list" as the_url %}" method="post">
+                {% include "task_completion_component.html" with tasks=today_tasks redirect_to_url=the_url %}
+                <input type="submit" class="btn btn-primary" value="Complete task{{ today_tasks|pluralize }}" name="complete_tasks">
+            </form>
+        </div>
     {% else %}
         <p>No task for today. Add one from <a href="{% url "todo_app:add_task" %}">here</a>.</p>
     {% endif %}
